@@ -6,8 +6,8 @@ const PUBLIC_PATH = '/'; // 基础路径
 console.log(__dirname);
 console.log(process.env.ASSET_PATH);
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+function resolve(dir) {
+  return path.join(__dirname, '..', dir);
 }
 
 module.exports = {
@@ -18,12 +18,12 @@ module.exports = {
     './src/index.js' // 项目入口
   ],
   output: {
-    path: `${__dirname}/`, // 将打包好的文件放在此路径下，dev模式中，只会在内存中存在，不会真正的打包到此路径
+    path: resolve('dist'), // 将打包好的文件放在此路径下，dev模式中，只会在内存中存在，不会真正的打包到此路径
     publicPath: PUBLIC_PATH, // 文件解析路径，index.html中引用的路径会被设置为相对于此路径
     filename: 'bundle.js' // 编译后的文件名字
   },
   devtool: 'eval-source-map', // 报错的时候在控制台输出哪一行报错
-  context: path.join(__dirname, '..'), // entry 和 module.rules.loader 选项相对于此目录开始解析
+  context: resolve(''), // entry 和 module.rules.loader 选项相对于此目录开始解析
   module: {
     rules: [
       {
@@ -31,7 +31,7 @@ module.exports = {
         test: /\.js?$/,
         enforce: 'pre',
         use: ['eslint-loader'],
-        include: path.resolve(__dirname, 'src')
+        include: resolve('src')
       },
       {
         // .js .jsx用babel解析
@@ -65,25 +65,25 @@ module.exports = {
       {
         // 文件解析
         test: /\.(eot|woff|otf|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
-        include: path.resolve(__dirname, 'src'),
+        include: resolve('src'),
         use: ['file-loader?name=assets/[name].[hash:4].[ext]']
       },
       {
         // 图片解析
         test: /\.(png|jpg|gif)(\?|$)/,
-        include: path.resolve(__dirname, 'src'),
+        include: resolve('src'),
         use: ['url-loader?limit=8192&name=assets/[name].[hash:4].[ext]']
       },
       {
         // wasm文件解析
         test: /\.wasm$/,
-        include: path.resolve(__dirname, 'src'),
+        include: resolve('src'),
         type: 'webassembly/experimental'
       },
       {
         // xml文件解析
         test: /\.xml$/,
-        include: path.resolve(__dirname, 'src'),
+        include: resolve('src'),
         use: ['xml-loader']
       }
     ]
@@ -113,11 +113,5 @@ module.exports = {
         manifest: ''
       }
     })
-  ],
-  resolve: {
-    extensions: ['.js', '.jsx', '.less', '.css', '.wasm'], // 后缀名自动补全
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  }
+  ]
 };

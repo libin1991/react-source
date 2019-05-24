@@ -1,13 +1,9 @@
-import React, {Component} from 'react';
+import React, { PureComponent } from 'react';
 
-class SecondChildren extends Component {
-    render() {
-        return (
-            <div>
-                this is secondChildren
-            </div>
-        );
-    }
+class SecondChildren extends PureComponent {
+  render() {
+    return <div>this is secondChildren</div>;
+  }
 }
 
 export default SecondChildren;

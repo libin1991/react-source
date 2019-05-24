@@ -4,6 +4,6 @@
     <option name="languageLevel" value="FLOW" />
   </component>
   <component name="WebPackConfiguration">
-    <option name="path" value="$PROJECT_DIR$/config/webpack.ide.config.js" />
+    <option name="path" value="$PROJECT_DIR$/config/webpack.dev.config.js" />
   </component>
 </project>
